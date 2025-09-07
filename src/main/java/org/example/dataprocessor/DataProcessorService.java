@@ -1,8 +1,12 @@
 package org.example.dataprocessor;
 
+import org.example.dataprocessor.analysis.Mean;
 import org.example.dataprocessor.enums.AnalysisType;
 import org.example.dataprocessor.enums.CleaningType;
 import org.example.dataprocessor.enums.OutputType;
+import org.example.dataprocessor.inerfaces.AnalysisTypeService;
+import org.example.dataprocessor.inerfaces.CleanTypeService;
+import org.example.dataprocessor.inerfaces.OutputTypeService;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +15,7 @@ import java.util.*;
 
 /**
  * Students ONLY implement the process(...) method below.
- *
+ * <p>
  * Requirements:
  * - Order: Clean -> Analyze -> Output -> Return result
  * - Do NOT mutate the original input list
@@ -24,11 +28,15 @@ public class DataProcessorService {
     /**
      * Implement this method.
      */
-    public double process(
-            CleaningType cleaningType,
-            AnalysisType analysisType,
-            OutputType outputType,
-            List<Integer> data) throws Exception {
+    public double process(CleanTypeService cleaningType, AnalysisTypeService analysisType, OutputTypeService outputType, List<Integer> data)  {
+
+
+        List<Integer> list = new ArrayList<>();
+
+        list = cleaningType.clean(data);
+        double value = analysisType.analyze(list);
+        outputType.output(value);
+
 
         // TODO: implement using the enums only (no long if/else ladders required,
         // but minimal branching to select behavior by enum is acceptable in this task).
@@ -38,7 +46,7 @@ public class DataProcessorService {
         // 3) Output according to outputType (console or target/result.txt).
         // 4) Return the numeric result.
 
-        throw new UnsupportedOperationException("Student must implement process(...)");
+return value;
     }
 }
 
